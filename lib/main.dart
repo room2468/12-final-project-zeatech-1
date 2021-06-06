@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:zeatech/layouts/home.dart';
+// import 'package:zeatech/layouts/home.dart';
+import 'package:zeatech/layouts/login.dart';
+import 'package:zeatech/layouts/welcome.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Home();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      routes: {
+        '/': (context) => Welcome(),
+        '/login': (context) => Login()
+      },
+    );
   }
 }
