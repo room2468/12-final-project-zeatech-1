@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:zeatech/layouts/home.dart';
 import 'package:zeatech/layouts/login.dart';
+// import 'package:zeatech/layouts/logincoba.dart';
 import 'package:zeatech/layouts/welcome.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Welcome(),
         '/login': (context) => Login()
       },
+      // home: LoginPage(),
     );
   }
 }

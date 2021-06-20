@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+// import 'package:zeatech/helpers/sign_in.dart';
 import 'package:zeatech/layouts/buttonImage.dart';
+// import 'package:zeatech/layouts/firstscreen.dart';
 import 'package:zeatech/layouts/formLogin.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,41 +50,7 @@ class ContentArea extends StatelessWidget {
             Spacer(
               flex: 2,
             ), 
-            RaisedButton(
-              onPressed: () {},
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(80.0),
-              ),
-              padding: const EdgeInsets.all(0.0),
-              child: Ink(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: <Color>[
-                      Color(0xFF13E3D2),
-                      Color(0xFF5D74E2)
-                    ],
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(80.0),
-                  ),
-                ),
-                child: Container(
-                  constraints: const BoxConstraints(
-                    minWidth: 150.0,
-                    minHeight: 36.0,
-                  ),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Login',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            )
+            
           ],
         ),
         Padding(
