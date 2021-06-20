@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_auth: ^1.0.0 # new
+  google_sign_in: ^4.5.3 # new
 
   sqflite: any
 
