@@ -33,7 +33,7 @@ class _FormLoginState extends State<FormLogin> {
             decoration: BoxDecoration(
               color: Colors.white10,
               image: DecorationImage(
-                image: AssetImage('images/header.jpg'),
+                image: AssetImage('images/logo.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -61,6 +61,7 @@ class _FormLoginState extends State<FormLogin> {
                         ),
                       ),
                       TextField(
+                        controller: _email,
                         decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.email,
@@ -78,6 +79,7 @@ class _FormLoginState extends State<FormLogin> {
                         ),
                       ),
                       TextField(
+                        controller: _password,
                         decoration: InputDecoration(
                           suffixIcon: Icon(
                             Icons.security,
@@ -97,32 +99,32 @@ class _FormLoginState extends State<FormLogin> {
                       RaisedButton(
                         color: Colors.blue,
                         onPressed: () {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          AuthClass()
-                              .createAccount(
-                                  email: _email.text.trim(),
-                                  password: _password.text.trim())
-                              .then((value) {
-                            if (value == "Account created") {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                  (route) => false);
-                            } else {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(content: Text(value)));
-                            }
-                          });
-                        },
+                        setState(() {
+                          isLoading = true;
+                        });
+                        AuthClass()
+                            .signIN(
+                                email: _email.text.trim(),
+                                password: _password.text.trim())
+                            .then((value) {
+                          if (value == "Welcome") {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()),
+                                (route) => false);
+                          } else {
+                            setState(() {
+                              isLoading = false;
+                            });
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(content: Text(value)));
+                          }
+                        });
+                      },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(80.0),
                         ),

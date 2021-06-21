@@ -9,17 +9,10 @@ class Welcome extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "WE WILL FIND THE BEST",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF53714B),
-                  fontSize: 16),
-            ),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 600.0),
               child: Text(
-                "find the nearest places with the best organic foods and make your life healthier!",
+                "make your daily transaction records easier by using the            e-wallet application",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xFF53714B),

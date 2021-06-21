@@ -5,7 +5,7 @@ class AuthClass {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   //Create Account
-  Future<String> createAccount({String email, String password}) async {
+  Future createAccount({String email, String password}) async {
     try {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -22,7 +22,7 @@ class AuthClass {
   }
 
   //Sign in user
-  Future<String> signIN({String email, String password}) async {
+  Future signIN({String email, String password}) async {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       return "Welcome";
