@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "307356015470",
+    "project_id": "projectuas-e34b3",
+    "storage_bucket": "projectuas-e34b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307356015470:android:62d7977de2dd807ae87f7f",
+        "android_client_info": {
+          "package_name": "com.example.zeatech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307356015470-4gdlo3013ag8f40l9oj8f7mnppsqf1sn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zeatech",
+            "certificate_hash": "3c248259941630401754521b4a4859fd11cae2a6"
+          }
+        },
+        {
+          "client_id": "307356015470-kp0cou17195rn1ttfs9asi5ahd7kdpl5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1JvZkWPSRSjpOmTTsf_iqGumLp6mFp1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307356015470-kp0cou17195rn1ttfs9asi5ahd7kdpl5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
