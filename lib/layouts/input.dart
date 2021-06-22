@@ -131,7 +131,6 @@ class EntryFormState extends State<EntryForm> {
                           textScaleFactor: 1.5,
                         ),
                         
-                        
 
                       ),
                     ),
