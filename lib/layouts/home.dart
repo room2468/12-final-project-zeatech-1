@@ -165,31 +165,11 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Container(
-                color: Colors.white,
-                alignment: Alignment.topCenter,
-                margin: EdgeInsets.only(top: 100),
-                child: Text(
-                  "Tambah Transaksi",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 7, left: 8, right: 8),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1.0, color: Colors.black),
-                  ),
-                ),
-              ),
               Flexible(
                 child: (Container(
-                  padding: EdgeInsets.fromLTRB(8, 100, 8, 8),
+                  padding: EdgeInsets.fromLTRB(8, 160, 8, 8),
                   width: 350.0,
-                  height: 150.0,
+                  height: 220.0,
                   child: RaisedButton(
                     onPressed: null,
                     color: Colors.blue[400],
