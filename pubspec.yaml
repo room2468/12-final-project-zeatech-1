@@ -27,8 +27,6 @@ dependencies:
   google_sign_in: ^4.5.3 # new
   firebase: any
   firebase_core: any
-  
-
   sqflite: any
 
   path_provider: any
@@ -60,7 +58,7 @@ flutter:
     - images/header.jpg
     - images/linkedin.png
     - images/twitter.png
-    - images/dompet.png
+    # - images/dompet.png
     - images/logo.jpg
     
 
