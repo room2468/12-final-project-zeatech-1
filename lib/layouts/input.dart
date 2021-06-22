@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zeatech/models/informasi.dart';
+import 'package:zeatech/models/transaksi.dart';
+import 'package:zeatech/helpers/dbhelper.dart';
 
 class EntryForm extends StatefulWidget {
   final int index;
@@ -24,20 +27,12 @@ class EntryFormState extends State<EntryForm> {
   var listType = ["Pemasukan", "Pengeluaran"];
   List<String> listViewType = List<String>();
   String valType = "Pemasukan";
-  var account = ["cash", "bank"];
-  String valAcc = "cash";
-  int inputjumlah;
-  String tipe;
+  int nominal;
+  String tanggal;
 
   void dropdownOnChangedt(String changeValue) {
     setState(() {
       valType = changeValue;
-    });
-  }
-
-  void dropdownOnChangeda(String changeValue) {
-    setState(() {
-      valAcc = changeValue;
     });
   }
 
@@ -58,8 +53,7 @@ class EntryFormState extends State<EntryForm> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 20, left: 8),
-                    child: Text("Type",
-                        style: TextStyle(color: Colors.black, fontSize: 18)),
+                    child: Text("Type",style: TextStyle(color: Colors.black, fontSize: 18)),
                   ),
                   Container(
                     margin: EdgeInsets.only(
@@ -80,38 +74,11 @@ class EntryFormState extends State<EntryForm> {
                 ],
               ),
 
-              // account
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10, left: 8),
-                    child: Text("Account",
-                        style: TextStyle(color: Colors.black, fontSize: 18)),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: 130,
-                      top: 10,
-                    ),
-                    child: DropdownButton<String>(
-                      items: account.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      value: valAcc,
-                      onChanged: dropdownOnChangeda,
-                    ),
-                  ),
-                ],
-              ),
-
-              // keterangan
+              // tanggal
               Container(
                 margin: EdgeInsets.only(top: 15, left: 8),
                 alignment: Alignment.topLeft,
-                child: Text("keterangan",
+                child: Text("tanggal transaksi",
                     style: TextStyle(color: Colors.black, fontSize: 18)),
               ),
               Padding(
@@ -120,7 +87,7 @@ class EntryFormState extends State<EntryForm> {
                   controller: keteranganController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'keterangan',
+                    labelText: 'tanggal transaksi',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
@@ -148,6 +115,44 @@ class EntryFormState extends State<EntryForm> {
                     ),
                   ),
                   onChanged: (value) {},
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    // tombol simpan
+                    Expanded(
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColorDark,
+                        textColor: Theme.of(context).primaryColorLight,
+                        child: Text(
+                          'Save',
+                          textScaleFactor: 1.5,
+                        ),
+                        
+                        
+
+                      ),
+                    ),
+                    Container(
+                      width: 5.0,
+                    ),
+                    // tombol batal
+                    Expanded(
+                      child: RaisedButton(
+                        color: Theme.of(context).primaryColorDark,
+                        textColor: Theme.of(context).primaryColorLight,
+                        child: Text(
+                          'Cancel',
+                          textScaleFactor: 1.5,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
