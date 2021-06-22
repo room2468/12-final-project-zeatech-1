@@ -5,7 +5,8 @@ import 'package:path_provider/path_provider.dart';
 
 // TODO: Make Model
 // TODO: Import model
-import 'package:zeatech/models/infomodel.dart';
+import 'package:zeatech/models/informasi.dart';
+import 'package:zeatech/models/transaksi.dart';
 
 class DbHelper {
   static DbHelper _dbHelper;
@@ -35,73 +36,56 @@ class DbHelper {
         text jenis_transaksi,
         text tanggal_transaksi,
       ),
-      CREATE TABLE akun (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nama TEXT NOT NULL,
-        email TEXT NOT NULL,
-        password TEXT NOT NULL,
-      )
-    ''');
-    await db.execute('''
-      CREATE TABLE informasi_akun (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        akun_id INTEGER NOT NULL,
-        pemasukan INT,
-        pengeluaran INT,
-        FOREIGN KEY (akun_id) REFERENCES akun (id),
-      )
-    ''');
-    await db.execute('''
-      CREATE TABLE transaksi (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        akun_id INTEGER NOT NULL,
-        besaran_transaksi INTEGER,
-        jenis_transaksi TEXT,
-        tanggal_transaksi TEXT,
-      )
     ''');
 
     // TODO: Make trigger after akun insert and transaksi insert
   }
 
   // TODO: Make CRUD function
-  // Select databases
-  Future<List<Map<String, dynamic>>> select() async {
+
+  // Select data from databases
+  Future<List<Map<String, dynamic>>> selectHistory() async {
+    // Untuk mengambil semua data pada tabel transaksi
+    // Digunakan untuk menampilkan data history transaksi pada halaman home
     Database db = await this.initDb();
-    var mapList = await db.query('item', orderBy: 'name');
+    var mapList = await db.query('transaksi', orderBy: 'tanggal_transaksi');
     return mapList;
   }
 
-// Create databases
-  Future<int> insert(Item object) async {
+  Future<List<Map<String, dynamic>>> selectInfo() async {
+    // Digunakan untuk menampilkan pemasukan dan pengeluaran yang tercatat
     Database db = await this.initDb();
-    int count = await db.insert('item', object.toMap());
+    var mapList = await db.query('info');
+    return mapList;
+  }
+
+// Create data on databases
+  Future<int> insert(Transaksi object) async {
+    // Untuk memasukkan data transaksi pada tabel transaksi
+    // Data diambil dari halaman input
+    Database db = await this.initDb();
+    int count = await db.insert('transaksi', object.toMap());
     return count;
   }
 
 // Update databases
-  Future<int> update(Item object) async {
+  Future<int> update(Informasi object) async {
+    // Digunakan untuk mengupdate data pada tabel informasi
+    // Kolom pemasukan dan pengeluaran diupdate berdasarkan transaksi yang ditambahkan
     Database db = await this.initDb();
     int count = await db
-        .update('item', object.toMap(), where: 'id=?', whereArgs: [object.id]);
+        .update('informasi', object.toMap(), where: 'id=?', whereArgs: [object.id]);
     return count;
   }
 
-// Delete databases
-  Future<int> delete(int id) async {
-    Database db = await this.initDb();
-    int count = await db.delete('item', where: 'id=?', whereArgs: [id]);
-    return count;
-  }
-
-  Future<List<Item>> getItemList() async {
-    var itemMapList = await select();
-    int count = itemMapList.length;
-    List<Item> itemList = List<Item>();
+  Future<List<Transaksi>> getHistoryList() async {
+    var historyMapList = await selectHistory();
+    int count = historyMapList.length;
+    List<Transaksi> historyList = List<Transaksi>();
     for (int i = 0; i < count; i++) {
-      itemList.add(Item.fromMap(itemMapList[i]));
+      historyList.add(Transaksi.fromMap(historyMapList[i]));
     }
-    return itemList;
+    return historyList;
   }
 
   factory DbHelper() {
