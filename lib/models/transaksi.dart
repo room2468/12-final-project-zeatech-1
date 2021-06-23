@@ -9,8 +9,8 @@ class Transaksi {
   get nominal => this._nominal;
   set nominal(value) => this._nominal = value;
 
-  get _jenistransaksi => this._jenistransaksi;
-  set _jenistransaksi(value) => this._jenistransaksi = value;
+  get jenistransaksi => this._jenistransaksi;
+  set jenistransaksi(value) => this._jenistransaksi = value;
 
   String get tanggaltransaksi => this._tanggaltransaksi;
   set tanggaltransaksi(String value) => this._tanggaltransaksi = value;
@@ -27,7 +27,7 @@ class Transaksi {
     Map<String, dynamic> map = Map<String, dynamic>();
     map['id'] = this._id;
     map['nominal'] = nominal;
-    map['pemasukan'] = pemasukan;
+    map['jenistransaksi'] = jenistransaksi;
     map['tanggaltransaksi'] = tanggaltransaksi;
     return map;
   }
