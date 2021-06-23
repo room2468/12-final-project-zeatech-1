@@ -2,7 +2,7 @@ class Informasi {
   int _id;
   int _pemasukan;
   int _pengeluaran;
- 
+
   int get id => _id;
 
   get pemasukan => this._pemasukan;
@@ -11,12 +11,14 @@ class Informasi {
   get pengeluaran => this._pengeluaran;
   set pengeluaran(value) => this._pengeluaran = value;
 
-  Informasi(this._pemasukan , this._pengeluaran);
+  // Konstruktor versi 1
+  Informasi(this._pemasukan, this._pengeluaran);
+
+  // Konstruktor versi 2
   Informasi.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
     this._pemasukan = map['pemasukan'];
     this._pengeluaran = map['pengeluaran'];
-
   }
 
   Map<String, dynamic> toMap() {
