@@ -128,7 +128,6 @@ class EntryFormState extends State<EntryForm> {
                           'Save',
                           textScaleFactor: 1.5,
                         ),
-                        
                         onPressed: () async {
                           // if (item == null) {
                           // tambah data

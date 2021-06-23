@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zeatech/helpers/firebaseAuth.dart';
-import 'package:zeatech/helpers/sign_in.dart';
-// import 'package:zeatech/layouts/firstscreen.dart';
 import 'package:zeatech/layouts/home.dart';
 
 class FormLogin extends StatefulWidget {
@@ -11,7 +9,6 @@ class FormLogin extends StatefulWidget {
 
   @override
   _FormLoginState createState() => _FormLoginState();
-  
 }
 
 class _FormLoginState extends State<FormLogin> {

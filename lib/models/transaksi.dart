@@ -1,8 +1,7 @@
 class Transaksi {
   int _id;
   int _nominal;
-  int _pemasukan;
-  int _pengeluaran;
+  String _jenistransaksi;
   String _tanggaltransaksi;
 
   int get id => _id;
@@ -10,21 +9,17 @@ class Transaksi {
   get nominal => this._nominal;
   set nominal(value) => this._nominal = value;
 
-  get pemasukan => this._pemasukan;
-  set pemasukan(value) => this._pemasukan = value;
-
-  get pengeluaran => this._pengeluaran;
-  set pengeluaran(value) => this._pengeluaran = value;
+  get _jenistransaksi => this._jenistransaksi;
+  set _jenistransaksi(value) => this._jenistransaksi = value;
 
   String get tanggaltransaksi => this._tanggaltransaksi;
   set tanggaltransaksi(String value) => this._tanggaltransaksi = value;
 
-  Transaksi(this._nominal,this._pemasukan , this._pengeluaran, this._tanggaltransaksi);
+  Transaksi(this._nominal, this._jenistransaksi, this._tanggaltransaksi);
   Transaksi.fromMap(Map<String, dynamic> map) {
     this._id = map['id'];
     this._nominal = map['nominal'];
-    this._pemasukan = map['pemasukan'];
-    this._pengeluaran = map['pengeluaran'];
+    this._jenistransaksi = map['jenistransaksi'];
     this._tanggaltransaksi = map['tanggaltransaksi'];
   }
 
@@ -33,7 +28,6 @@ class Transaksi {
     map['id'] = this._id;
     map['nominal'] = nominal;
     map['pemasukan'] = pemasukan;
-    map['pengeluaran'] = pengeluaran;
     map['tanggaltransaksi'] = tanggaltransaksi;
     return map;
   }
