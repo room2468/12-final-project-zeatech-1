@@ -9,8 +9,8 @@ class Transaksi {
   get nominal => this._nominal;
   set nominal(value) => this._nominal = value;
 
-  get pemasukan => this._jenistransaksi;
-  set pemasukan(value) => this._jenistransaksi = value;
+  get _jenistransaksi => this._jenistransaksi;
+  set _jenistransaksi(value) => this._jenistransaksi = value;
 
   String get tanggaltransaksi => this._tanggaltransaksi;
   set tanggaltransaksi(String value) => this._tanggaltransaksi = value;

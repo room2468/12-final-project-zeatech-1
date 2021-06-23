@@ -20,15 +20,13 @@ class EntryForm extends StatefulWidget {
 class EntryFormState extends State<EntryForm> {
   int index;
   EntryFormState(this.index);
-  TextEditingController typeController = TextEditingController();
-  TextEditingController accountController = TextEditingController();
-  TextEditingController keteranganController = TextEditingController();
+  TextEditingController tanggalController = TextEditingController();
   TextEditingController jumlahController = TextEditingController();
   var listType = ["Pemasukan", "Pengeluaran"];
   List<String> listViewType = List<String>();
   String valType = "Pemasukan";
+  String valAcc = "tanggal";
   int nominal;
-  String tanggal;
 
   void dropdownOnChangedt(String changeValue) {
     setState(() {
@@ -84,7 +82,7 @@ class EntryFormState extends State<EntryForm> {
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: TextField(
-                  controller: keteranganController,
+                  controller: tanggalController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'tanggal transaksi',
@@ -130,8 +128,34 @@ class EntryFormState extends State<EntryForm> {
                           'Save',
                           textScaleFactor: 1.5,
                         ),
-                        
+                        onPressed: () async {
+                          // if (item == null) {
+                          // tambah data
+                          final _parsedJumlah =
+                              int.parse(jumlahController.text);
+                          final item = Item(
+                            valType,
+                            valAcc,
+                            tanggalController.text,
+                            _parsedJumlah,
+                            
+                          );
+                          final transaction = Transaksi(
+                            (valType == 'Pemasukan') ? _parsedJumlah : 0,
+                            (valType == 'Pengeluaran') ? _parsedJumlah : 0,
+                            (valAcc == 'tanggal') ? _parsedJumlah : 0,
+                            (valAcc == '') ? _parsedJumlah : 0,
+                            _parsedJumlah,
+                            
+                          );
 
+                          DbHelper().insert(item);
+                          
+
+                          widget.rebuilt();
+
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                     Container(
