@@ -134,7 +134,7 @@ class _HomeState extends State<Home> {
                   Expanded(
                     child: _createHistory(),
                   ),
-                  
+
                   FloatingActionButton(
                     onPressed: () async {
                       var data = await navigateToEntryForm(context, null);
@@ -161,9 +161,7 @@ class _HomeState extends State<Home> {
     );
   }
 
- 
-  Future<Transaksi> navigateToEntryForm(
-      BuildContext context, int index) async {
+  Future<Transaksi> navigateToEntryForm(BuildContext context, int index) async {
     var result = await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) {
       return EntryForm(index, _rebuilt);
@@ -199,37 +197,39 @@ class _HomeState extends State<Home> {
                   ),
                   subtitle: Column(
                     children: [
-                      Text('Nominal :  ${_listData[index].nominal} ',),
+                      Text(
+                        'Nominal :  ${_listData[index].nominal} ',
+                      ),
                       Text('Tanggal  :  ${_listData[index].tanggaltransaksi} '),
                     ],
                   ),
-                  trailing: Wrap(
-                    spacing: 8,
-                    children: [
-                      GestureDetector(
-                        child: Icon(Icons.edit),
-                        onTap: () async {
-                          var transaksi = await navigateToEntryForm(
-                            context,
-                            index,
-                          );
-                          int result = await dbhelper.updateTransaksi(transaksi);
-                          if (result >= 0) {
-                            _updateHistory() ;
-                          }
-                        },
-                      ),
-                      GestureDetector(
-                        child: Icon(Icons.delete),
-                        onTap: () async {
-                          int result = await dbhelper.deleteTransaksi(index);
-                          if (result >= 0 || result > -1) {
-                            _updateHistory() ;
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                  // trailing: Wrap(
+                  //   spacing: 8,
+                  //   children: [
+                  //     GestureDetector(
+                  //       child: Icon(Icons.edit),
+                  //       onTap: () async {
+                  //         var transaksi = await navigateToEntryForm(
+                  //           context,
+                  //           index,
+                  //         );
+                  //         int result = await dbhelper.updateTransaksi(transaksi);
+                  //         if (result >= 0) {
+                  //           _updateHistory() ;
+                  //         }
+                  //       },
+                  //     ),
+                  //     GestureDetector(
+                  //       child: Icon(Icons.delete),
+                  //       onTap: () async {
+                  //         int result = await dbhelper.deleteTransaksi(index);
+                  //         if (result >= 0 || result > -1) {
+                  //           _updateHistory() ;
+                  //         }
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
                 ),
               );
             },

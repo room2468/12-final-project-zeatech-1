@@ -40,7 +40,6 @@ class EntryFormState extends State<EntryForm> {
     }
   }
 
-
   void dropdownOnChanged(String changeValue) {
     setState(() {
       valType = changeValue;
@@ -127,20 +126,20 @@ class EntryFormState extends State<EntryForm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                 Text(
-                      "${selectedDate.toLocal()}".split(' ')[0],
-                      style: TextStyle(color: Colors.black, fontSize: 18),
-                    ),
-                  FlatButton(
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    textColor: Theme.of(context).accentColor,
-                    onPressed: () => {
-                      _selectDate(context),
-                    },
+                  Text(
+                    "${selectedDate.toLocal()}".split(' ')[0],
+                    style: TextStyle(color: Colors.black, fontSize: 18),
                   ),
+                  // FlatButton(
+                  //   child: Text(
+                  //     'Choose Date',
+                  //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  //   ),
+                  //   textColor: Theme.of(context).accentColor,
+                  //   onPressed: () => {
+                  //     _selectDate(context),
+                  //   },
+                  // ),
                 ],
               ),
 
@@ -175,8 +174,8 @@ class EntryFormState extends State<EntryForm> {
                           Navigator.pop(context);
                         },
                       ),
-                    ),             
-                  
+                    ),
+
                     // tombol batal
                     Expanded(
                       child: RaisedButton(
