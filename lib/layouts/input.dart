@@ -1,34 +1,48 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zeatech/models/informasi.dart';
 import 'package:zeatech/models/transaksi.dart';
 import 'package:zeatech/helpers/dbhelper.dart';
 
 class EntryForm extends StatefulWidget {
-  final int index;
-  final VoidCallback rebuilt;
-
+  final Transaksi transaksi;
+  // final VoidCallback rebuilt;
   EntryForm(
-    this.index,
-    this.rebuilt,
+    this.transaksi,
+    // this.rebuilt,
   );
 
   @override
-  EntryFormState createState() => EntryFormState(this.index);
+  EntryFormState createState() => EntryFormState(this.transaksi);
 }
 
 //class controller
 class EntryFormState extends State<EntryForm> {
-  int index;
-  EntryFormState(this.index);
+  Transaksi transaksi;
+  // int index;
+  EntryFormState(this.transaksi);
   TextEditingController tanggalController = TextEditingController();
   TextEditingController jumlahController = TextEditingController();
   var listType = ["Pemasukan", "Pengeluaran"];
   List<String> listViewType = List<String>();
   String valType = "Pemasukan";
-  String valAcc = "tanggal";
-  int nominal;
+  DateTime selectedDate = DateTime.now();
 
-  void dropdownOnChangedt(String changeValue) {
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: selectedDate.subtract(Duration(days: 30)),
+        lastDate: DateTime(selectedDate.year + 1));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+  // String valAcc = "tanggal";
+
+  void dropdownOnChanged(String changeValue) {
     setState(() {
       valType = changeValue;
     });
@@ -40,7 +54,7 @@ class EntryFormState extends State<EntryForm> {
     //rubah
     return Scaffold(
         appBar: AppBar(
-          title: index == null ? Text('Tambah Transaksi') : Text('Ubah'),
+          title: transaksi == null ? Text('Tambah Transaksi') : Text('Ubah'),
           leading: Icon(Icons.keyboard_arrow_left),
         ),
         body: Padding(
@@ -51,7 +65,8 @@ class EntryFormState extends State<EntryForm> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 20, left: 8),
-                    child: Text("Type",style: TextStyle(color: Colors.black, fontSize: 18)),
+                    child: Text("Type",
+                        style: TextStyle(color: Colors.black, fontSize: 18)),
                   ),
                   Container(
                     margin: EdgeInsets.only(
@@ -66,31 +81,17 @@ class EntryFormState extends State<EntryForm> {
                         );
                       }).toList(),
                       value: valType,
-                      onChanged: dropdownOnChangedt,
+                      onChanged: dropdownOnChanged,
                     ),
                   ),
                 ],
               ),
-
-              // tanggal
               Container(
-                margin: EdgeInsets.only(top: 15, left: 8),
-                alignment: Alignment.topLeft,
-                child: Text("tanggal transaksi",
-                    style: TextStyle(color: Colors.black, fontSize: 18)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                child: TextField(
-                  controller: tanggalController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'tanggal transaksi',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+                margin: EdgeInsets.only(top: 10),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 1.0, color: Colors.black54),
                   ),
-                  onChanged: (value) {},
                 ),
               ),
 
@@ -115,6 +116,65 @@ class EntryFormState extends State<EntryForm> {
                   onChanged: (value) {},
                 ),
               ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 1.0, color: Colors.black54),
+                  ),
+                ),
+              ),
+
+              // tanggal
+              // Container(
+              //   margin: EdgeInsets.only(top: 15, left: 8),
+              //   alignment: Alignment.topLeft,
+              //   child: Text("tanggal transaksi",
+              //       style: TextStyle(color: Colors.black, fontSize: 18)),
+              // ),
+              // Padding(
+              //   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              //   child: Column(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: <Widget>[
+              //       Text("${selectedDate.toLocal()}".split(' ')[0]),
+              //       SizedBox(
+              //         height: 20.0,
+              //       ),
+              //       RaisedButton(
+              //         onPressed: () => {
+              //           _selectDate(context),
+              //           print(selectedDate.day +
+              //               selectedDate.month +
+              //               selectedDate.year),
+              //         },
+              //         child: Text('Pilih Tanggal'),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                 Text(
+                      "${selectedDate.toLocal()}".split(' ')[0],
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  FlatButton(
+                    child: Text(
+                      'Choose Date',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    textColor: Theme.of(context).accentColor,
+                    onPressed: () => {
+                      _selectDate(context),
+                    },
+                  ),
+                ],
+              ),
+
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: Row(
@@ -129,31 +189,15 @@ class EntryFormState extends State<EntryForm> {
                           textScaleFactor: 1.5,
                         ),
                         onPressed: () async {
-                          // if (item == null) {
-                          // tambah data
                           final _parsedJumlah =
                               int.parse(jumlahController.text);
-                          final item = Item(
+                          final transaksi = Transaksi(
+                            _parsedJumlah,
                             valType,
-                            valAcc,
-                            tanggalController.text,
-                            _parsedJumlah,
-                            
+                            selectedDate.toString(),
                           );
-                          final transaction = Transaksi(
-                            (valType == 'Pemasukan') ? _parsedJumlah : 0,
-                            (valType == 'Pengeluaran') ? _parsedJumlah : 0,
-                            (valAcc == 'tanggal') ? _parsedJumlah : 0,
-                            (valAcc == '') ? _parsedJumlah : 0,
-                            _parsedJumlah,
-                            
-                          );
-
-                          DbHelper().insert(item);
-                          
-
-                          widget.rebuilt();
-
+                          DbHelper().insert(transaksi);
+                          // widget.rebuilt();
                           Navigator.pop(context);
                         },
                       ),
