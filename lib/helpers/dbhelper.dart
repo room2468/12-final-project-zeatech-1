@@ -43,7 +43,7 @@ class DbHelper {
     ''');
     // Untuk menambahkan data awal pada tabel informasi
     // Menyimpan nilai pemasukan dan pengeluaran
-    db.rawInsert('INSERT INTO info (pemasukan, pengeluaran) VALUES (0, 0)');
+    await db.rawInsert('INSERT INTO info (pemasukan, pengeluaran) VALUES (0, 0)');
     // TODO: Make trigger after akun insert and transaksi insert
   }
 
@@ -79,8 +79,8 @@ class DbHelper {
     // Digunakan untuk mengupdate data pada tabel informasi
     // Kolom pemasukan dan pengeluaran diupdate berdasarkan transaksi yang ditambahkan
     Database db = await this.initDb();
-    int count = await db.update('informasi', object.toMap(),
-        where: 'id=?', whereArgs: [1]);
+    int count = await db
+        .update('informasi', object.toMap(), where: 'id=?', whereArgs: [1]);
     return count;
   }
 
@@ -92,6 +92,16 @@ class DbHelper {
       historyList.add(Transaksi.fromMap(historyMapList[i]));
     }
     return historyList;
+  }
+
+  Future<List<Informasi>> getInfo() async {
+    var infoMapList = await selectInfo();
+    int count = infoMapList.length;
+    List<Informasi> infoList = List<Informasi>();
+    for (int i = 0; i < count; i++) {
+      infoList.add(Informasi.fromMap(infoMapList[i]));
+    }
+    return infoList;
   }
 
   factory DbHelper() {
