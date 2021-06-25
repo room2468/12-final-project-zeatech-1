@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zeatech/helpers/firebaseAuth.dart';
+import 'package:zeatech/authentication/firebaseAuth.dart';
 import 'package:zeatech/layouts/home.dart';
 
 class FormLogin extends StatefulWidget {

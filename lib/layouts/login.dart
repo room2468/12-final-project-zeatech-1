@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zeatech/helpers/register.dart';
-// import 'package:zeatech/helpers/sign_in.dart';
-import 'package:zeatech/layouts/buttonImage.dart';
-// import 'package:zeatech/layouts/firstscreen.dart';
-import 'package:zeatech/layouts/formLogin.dart';
+import 'package:zeatech/authentication/register.dart';
+import 'package:zeatech/authentication/buttonImage.dart';
+import 'package:zeatech/authentication/formLogin.dart';
 
 class Login extends StatefulWidget {
   @override
