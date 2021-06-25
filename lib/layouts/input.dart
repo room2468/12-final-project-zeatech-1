@@ -5,22 +5,21 @@ import 'package:zeatech/models/transaksi.dart';
 import 'package:zeatech/helpers/dbhelper.dart';
 
 class EntryForm extends StatefulWidget {
-  final Transaksi transaksi;
-  // final VoidCallback rebuilt;
+  final int index;
+  final VoidCallback rebuilt;
   EntryForm(
-    this.transaksi,
-    // this.rebuilt,
+    this.index,
+    this.rebuilt,
   );
 
   @override
-  EntryFormState createState() => EntryFormState(this.transaksi);
+  EntryFormState createState() => EntryFormState(this.index);
 }
 
 //class controller
 class EntryFormState extends State<EntryForm> {
-  Transaksi transaksi;
-  // int index;
-  EntryFormState(this.transaksi);
+  int index;
+  EntryFormState(this.index);
   TextEditingController tanggalController = TextEditingController();
   TextEditingController jumlahController = TextEditingController();
   var listType = ["Pemasukan", "Pengeluaran"];
@@ -40,7 +39,7 @@ class EntryFormState extends State<EntryForm> {
       });
     }
   }
-  // String valAcc = "tanggal";
+
 
   void dropdownOnChanged(String changeValue) {
     setState(() {
@@ -54,7 +53,7 @@ class EntryFormState extends State<EntryForm> {
     //rubah
     return Scaffold(
         appBar: AppBar(
-          title: transaksi == null ? Text('Tambah Transaksi') : Text('Ubah'),
+          title: index == null ? Text('Tambah Transaksi') : Text('Ubah'),
           leading: Icon(Icons.keyboard_arrow_left),
         ),
         body: Padding(
@@ -125,36 +124,6 @@ class EntryFormState extends State<EntryForm> {
                 ),
               ),
 
-              // tanggal
-              // Container(
-              //   margin: EdgeInsets.only(top: 15, left: 8),
-              //   alignment: Alignment.topLeft,
-              //   child: Text("tanggal transaksi",
-              //       style: TextStyle(color: Colors.black, fontSize: 18)),
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-              //   child: Column(
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: <Widget>[
-              //       Text("${selectedDate.toLocal()}".split(' ')[0]),
-              //       SizedBox(
-              //         height: 20.0,
-              //       ),
-              //       RaisedButton(
-              //         onPressed: () => {
-              //           _selectDate(context),
-              //           print(selectedDate.day +
-              //               selectedDate.month +
-              //               selectedDate.year),
-              //         },
-              //         child: Text('Pilih Tanggal'),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -196,15 +165,18 @@ class EntryFormState extends State<EntryForm> {
                             valType,
                             selectedDate.toString(),
                           );
+                          final informasi = Informasi(
+                            (valType == 'Pemasukan') ? _parsedJumlah : 0,
+                            (valType == 'Pengeluaran') ? _parsedJumlah : 0,
+                          );
                           DbHelper().insert(transaksi);
-                          // widget.rebuilt();
+                          DbHelper().insertInfo(informasi);
+                          widget.rebuilt();
                           Navigator.pop(context);
                         },
                       ),
-                    ),
-                    Container(
-                      width: 5.0,
-                    ),
+                    ),             
+                  
                     // tombol batal
                     Expanded(
                       child: RaisedButton(

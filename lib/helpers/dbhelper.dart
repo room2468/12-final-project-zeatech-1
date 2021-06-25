@@ -37,8 +37,8 @@ class DbHelper {
       CREATE TABLE IF NOT EXISTS transaksi (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nominal INTEGER,
-        jenis_transaksi TEXT,
-        tanggal_transaksi TEXT
+        jenistransaksi TEXT,
+        tanggaltransaksi TEXT
       )
     ''');
     // Untuk menambahkan data awal pada tabel informasi
@@ -54,14 +54,13 @@ class DbHelper {
     // Untuk mengambil semua data pada tabel transaksi
     // Digunakan untuk menampilkan data history transaksi pada halaman home
     Database db = await this.initDb();
-    var mapList = await db.query('transaksi', orderBy: 'tanggal_transaksi');
+    var mapList = await db.query('transaksi', orderBy: 'tanggaltransaksi');
     return mapList;
   }
 
   Future<List<Map<String, dynamic>>> selectInfo() async {
-    // Digunakan untuk menampilkan pemasukan dan pengeluaran yang tercatat
     Database db = await this.initDb();
-    var mapList = await db.query('info');
+    var mapList = await db.query('info', orderBy: 'id');
     return mapList;
   }
 
@@ -74,16 +73,40 @@ class DbHelper {
     return count;
   }
 
-// Update databases
+  //create data di tabel informasi
+  Future<int> insertInfo(Informasi object) async {
+    Database db = await this.initDb();
+    int count = await db.insert('info', object.toMap());
+    return count;
+  }
+
+// Update databases di tabel informasu
   Future<int> update(Informasi object) async {
     // Digunakan untuk mengupdate data pada tabel informasi
     // Kolom pemasukan dan pengeluaran diupdate berdasarkan transaksi yang ditambahkan
     Database db = await this.initDb();
     int count = await db
-        .update('informasi', object.toMap(), where: 'id=?', whereArgs: [1]);
+        .update('info', object.toMap(), where: 'id=?', whereArgs: [object.id]);
     return count;
   }
 
+  //update database di tabel transaksi
+   Future<int> updateTransaksi(Transaksi object) async {
+    Database db = await this.initDb();
+    int count = await db
+        .update('transaksi', object.toMap(), where: 'id=? ', whereArgs: [object.id]);
+    return count;
+  }
+
+  //delete database transaksi
+  Future<int> deleteTransaksi(int id) async {
+    Database db = await this.initDb();
+    int count = await db.delete('transaksi', where: 'id=?', whereArgs: [id]);
+    return count;
+  }
+
+
+  
   Future<List<Transaksi>> getHistoryList() async {
     var historyMapList = await selectHistory();
     int count = historyMapList.length;

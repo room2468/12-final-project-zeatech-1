@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zeatech/helpers/firebaseAuth.dart';
-// import 'package:zeatech/helpers/sign_in.dart';
-// import 'package:zeatech/layouts/firstscreen.dart';
+import 'package:zeatech/authentication/firebaseAuth.dart';
 import 'package:zeatech/layouts/home.dart';
 
 class ButtonImage extends StatelessWidget {
@@ -44,9 +42,7 @@ class ButtonImage extends StatelessWidget {
               //Sign In with google
               AuthClass().signWithGoogle().then((UserCredential value) {
                 final displayName = value.user.displayName;
-
                 print(displayName);
-
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => Home()),
